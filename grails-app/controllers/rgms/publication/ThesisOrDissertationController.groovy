@@ -34,11 +34,7 @@ class ThesisOrDissertationController {
             }
         }
         //#end
-        if (thesisOrDissertation == "Tese") {
-	        [teseInstance: instance]
-        } else if (thesisOrDissertation == "Dissertacao") {
-    	    [dissertacaoInstance: instance]
-        }
+        returnInstance(thesisOrDissertation, instance)
     }
 
     def saveThesisOrDissertation(String thesisOrDissertation, params) {
@@ -73,11 +69,7 @@ class ThesisOrDissertationController {
             messageGenerator(thesisOrDissertation, 'default.not.found.message', id)
             return
         }
-        if (thesisOrDissertation == "Tese") {
-            [teseInstance: instance]
-        } else if (thesisOrDissertation == "Dissertacao") {
-            [dissertacaoInstance: instance]
-        }
+        returnInstance(thesisOrDissertation, instance)
     }
 
     def updateThesisOrDissertation(String thesisOrDissertation, params) {
@@ -129,19 +121,26 @@ class ThesisOrDissertationController {
     }
 
     def createInstance(String thesisOrDissertation, params) {
-        def instance
         if (thesisOrDissertation == "Tese") {
-    		instance = new Tese(params)
+    		new Tese(params)
         } else if (thesisOrDissertation == "Dissertacao") {
-    		instance = new Dissertacao(params)
+    		new Dissertacao(params)
         }
     }
 
     def getInstance(String thesisOrDissertation, id) {
         if (thesisOrDissertation == "Tese") {
-    		def instance = Tese.get(id)
+    		Tese.get(id)
         } else if (thesisOrDissertation == "Dissertacao") {
-    		def instance = Dissertacao.get(id)
+    		Dissertacao.get(id)
+        }
+    }
+
+    def returnInstance(String thesisOrDissertation, instance) {
+        if (thesisOrDissertation == "Tese") {
+            [teseInstance: instance]
+        } else if (thesisOrDissertation == "Dissertacao") {
+            [dissertacaoInstance: instance]
         }
     }
 
